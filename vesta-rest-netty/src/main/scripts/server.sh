@@ -15,8 +15,7 @@ GC_LOG_OPTS=" -verbose:gc  -XX:+PrintGCDateStamps -XX:+PrintTenuringDistribution
 PRG_OPTS=""
 
 #应用客户化变量
-if [ -f $APP_PATH/conf/custom.properties ]
-then
+if [ -f $APP_PATH/conf/custom.properties ]; then
 	source $APP_PATH/conf/custom.properties
 fi
 
@@ -29,20 +28,18 @@ MAIN_CLASS=${MAIN_CLASS:-"./lib/$package $port"}
 
 
 exist(){
-			if test $( pgrep -f "$MAIN_CLASS" | wc -l ) -eq 0 
-			then
-				return 1
-			else
-				return 0
-			fi
+        if test $( pgrep -f "$MAIN_CLASS" | wc -l ) -eq 0; then
+            return 1
+        else
+            return 0
+        fi
 }
 
 start(){
-		
 		echo "apppath: $APP_PATH"
 		if exist; then
-				echo "$name is already running."
-				exit 1
+            echo "$name is already running."
+            exit 1
 		else
 	    	cd $APP_PATH
 			nohup java $JAVA_OPTS -cp $CLASS_PATH -jar $MAIN_CLASS 2> /dev/null & 
@@ -53,35 +50,34 @@ start(){
 stop(){
 		runningPID=`pgrep -f "$MAIN_CLASS"`
 		if [ "$runningPID" ]; then
-				echo "$name pid: $runningPID"
-        count=0
-        kwait=5
-        echo "$name is stopping, please wait..."
-        kill -15 $runningPID
-					until [ `ps --pid $runningPID 2> /dev/null | grep -c $runningPID 2> /dev/null` -eq '0' ] || [ $count -gt $kwait ]
-		        do
-		            sleep 1
-		            count=$count+1;
-		        done
-
+            echo "$name pid: $runningPID"
+            count=0
+            kwait=5
+            echo "$name is stopping, please wait..."
+            kill -15 $runningPID
+            until [ `ps --pid $runningPID 2> /dev/null | grep -c $runningPID 2> /dev/null` -eq '0' ] || [ $count -gt $kwait ]
+            do
+                sleep 1
+                count=$count+1;
+            done
 	        if [ $count -gt $kwait ]; then
 	            kill -9 $runningPID
 	        fi
-        clear
-        echo "$name is stopped."
-    else
+            clear
+            echo "$name is stopped."
+        else
     		echo "$name has not been started."
-    fi
+        fi
 }
 
 check(){
-   if exist; then
-   	 echo "$name is alive."
-   	 exit 0
-   else
-   	 echo "$name is dead."
-   	 exit -1
-   fi
+        if exist; then
+            echo "$name is alive."
+            exit 0
+        else
+            echo "$name is dead."
+            exit -1
+        fi
 }
 
 restart(){

@@ -1,5 +1,6 @@
 package com.robert.vesta.rest.netty;
 
+import com.alibaba.fastjson.JSONObject;
 import com.robert.vesta.service.bean.Id;
 import com.robert.vesta.service.intf.IdService;
 import io.netty.buffer.Unpooled;
@@ -13,7 +14,6 @@ import io.netty.handler.codec.http.HttpHeaders.Values;
 import io.netty.handler.codec.http.HttpRequest;
 import io.netty.handler.codec.http.QueryStringDecoder;
 import java.text.SimpleDateFormat;
-import net.sf.json.JSONObject;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.ApplicationContext;
@@ -134,7 +134,8 @@ public class VestaRestNettyServerHandler extends ChannelHandlerAdapter {
             if (log.isTraceEnabled())
                 log.trace("Explained id: " + ido);
 
-            JSONObject jo = JSONObject.fromObject(ido);
+//            JSONObject jo = JSONObject.fromObject(ido);
+            String jo = JSONObject.toJSONString(ido);
 
             sbContent.append(jo);
         } else if (ACTION_TRANSTIME.equals(uri.getPath())) {

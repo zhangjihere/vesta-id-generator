@@ -6,7 +6,7 @@ import com.robert.vesta.service.impl.bean.IdType;
 import java.util.Date;
 
 public interface Timer {
-    long EPOCH = 1514736000000L;
+    long EPOCH = 1546272000000L;// From 2019-01-01 00:00:00
 
     void init(IdMeta idMeta, IdType idType);
 

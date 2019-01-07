@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #java设置
-export JAVA_HOME=/usr/local/jdk1.6.0_45
+#export JAVA_HOME=/usr/local/jdk1.6.0_45
 export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
 export PATH=$JAVA_HOME/bin:$PATH:/sbin:/bin:/usr/sbin:/usr/bin:/usr/X11R6/bin
 
@@ -12,7 +12,7 @@ export APP_PATH
 sh $BASE_PATH/server.sh stop
 
 if [ $? -eq 0 ];then
-  exit 0
+    exit 0
 else
 	exit -1
 fi

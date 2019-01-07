@@ -6,15 +6,10 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.InetSocketAddress;
-import java.net.URL;
 import java.util.Properties;
-import java.util.stream.Stream;
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -70,7 +65,7 @@ public class VestaRestNettyServer {
         Properties properties=loadConf();
         String portStr=properties.getProperty("vesta.port");
         int port=8080;
-        if(!StringUtils.isBlank(portStr)&&StringUtils.isNumeric(portStr)){
+        if (portStr != null && !portStr.equals("")) {
             port = Integer.valueOf(portStr);
         }
         if (args.length > 0) {
